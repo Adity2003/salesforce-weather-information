@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Weather Dashboard" icon-name="custom:custom63">
+        <div class="slds-p-around_medium">
+            <lightning-input type="text" label="Enter City" value={city} onchange={handleCityChange}></lightning-input>
+            <lightning-button label="Get Weather" onclick={getWeather} class="slds-m-top_small"></lightning-button>
+            <template if:true={weatherData}>
+                <div class="slds-m-top_medium">
+                    <p><strong>Temperature:</strong> {weatherData.temperature} °C</p>
+                    <p><strong>Condition:</strong> {weatherData.condition}</p>
+                    <p><strong>Humidity:</strong> {weatherData.humidity} %</p>
+                    <p><strong>Wind Speed:</strong> {weatherData.windSpeed} km/h</p>
+                    <p><strong>Pressure:</strong> {weatherData.pressure} hPa</p>
+                </div>
+            </template>
+            <template if:true={error}>
+                <div class="slds-m-top_medium slds-text-color_error">
+                    <p>{error}</p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
