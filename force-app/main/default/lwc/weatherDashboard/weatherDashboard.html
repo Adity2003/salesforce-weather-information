@@ -1,22 +1,72 @@
 <template>
     <lightning-card title="Weather Dashboard" icon-name="custom:custom63">
         <div class="slds-p-around_medium">
-            <lightning-input type="text" label="Enter City" value={city} onchange={handleCityChange}></lightning-input>
-            <lightning-button label="Get Weather" onclick={getWeather} class="slds-m-top_small"></lightning-button>
-            <template if:true={weatherData}>
-                <div class="slds-m-top_medium">
-                    <p><strong>Temperature:</strong> {weatherData.temperature} °C</p>
-                    <p><strong>Condition:</strong> {weatherData.condition}</p>
-                    <p><strong>Humidity:</strong> {weatherData.humidity} %</p>
-                    <p><strong>Wind Speed:</strong> {weatherData.windSpeed} km/h</p>
-                    <p><strong>Pressure:</strong> {weatherData.pressure} hPa</p>
+
+            <!-- City Input -->
+            <lightning-input type="text" label="Enter City" value={city} onchange={handleCityChange}>
+            </lightning-input>
+
+            <!-- Get Weather Button -->
+            <lightning-button label="Get Weather" variant="brand" onclick={getWeather} class="slds-m-top_small"
+                disabled={isLoading}>
+            </lightning-button>
+
+            <!-- Loading State -->
+            <template if:true={isLoading}>
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-spinner alternative-text="Fetching weather data" size="medium">
+                    </lightning-spinner>
                 </div>
+
+                <p class="slds-text-align_center slds-m-top_small">
+                    Fetching weather data...
+                </p>
             </template>
-            <template if:true={error}>
-                <div class="slds-m-top_medium slds-text-color_error">
-                    <p>{error}</p>
-                </div>
+
+            <!-- Result / Error State -->
+            <template if:false={isLoading}>
+
+                <!-- Weather Data -->
+                <template if:true={weatherData}>
+                    <div class="slds-m-top_medium">
+
+                        <p>
+                            <strong>Temperature:</strong>
+                            {weatherData.temperature} °C
+                        </p>
+
+                        <p>
+                            <strong>Condition:</strong>
+                            {weatherData.condition}
+                        </p>
+
+                        <p>
+                            <strong>Humidity:</strong>
+                            {weatherData.humidity} %
+                        </p>
+
+                        <p>
+                            <strong>Wind Speed:</strong>
+                            {weatherData.windSpeed} km/h
+                        </p>
+
+                        <p>
+                            <strong>Pressure:</strong>
+                            {weatherData.pressure} hPa
+                        </p>
+
+                    </div>
+                </template>
+
+                <!-- Error -->
+                <template if:true={error}>
+                    <div class="slds-m-top_medium slds-text-color_error">
+                        <p>{error}</p>
+                    </div>
+                </template>
+
             </template>
+
         </div>
     </lightning-card>
 </template>
