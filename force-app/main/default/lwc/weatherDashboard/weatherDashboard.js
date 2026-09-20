@@ -1,4 +1,5 @@
 import { LightningElement } from 'lwc';
+import getWeather from '@salesforce/apex/WeatherController.getWeather';
 
 export default class WeatherDashboard extends LightningElement {
     city = '';
@@ -18,13 +19,16 @@ export default class WeatherDashboard extends LightningElement {
             this.isLoading = false;
             return;
         }
-        this.weatherData = {
-            temperature: 28,
-            condition: 'Cloudy',
-            humidity: 72,
-            windSpeed: 12,
-            pressure: 1012
-        };
-        this.isLoading = false;
+        getWeather({ city: this.city })
+            .then((result) => {
+                console.log('Apex Result:', JSON.stringify(result));
+                this.weatherData = result;
+            })
+            .catch((error) => {
+                this.error = error.body?.message || 'Something went wrong. Please try again.';
+            })
+            .finally(() => {
+                this.isLoading = false;
+            });
     }
 }

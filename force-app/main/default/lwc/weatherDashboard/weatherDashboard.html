@@ -29,32 +29,11 @@
                 <!-- Weather Data -->
                 <template if:true={weatherData}>
                     <div class="slds-m-top_medium">
-
-                        <p>
-                            <strong>Temperature:</strong>
-                            {weatherData.temperature} °C
-                        </p>
-
-                        <p>
-                            <strong>Condition:</strong>
-                            {weatherData.condition}
-                        </p>
-
-                        <p>
-                            <strong>Humidity:</strong>
-                            {weatherData.humidity} %
-                        </p>
-
-                        <p>
-                            <strong>Wind Speed:</strong>
-                            {weatherData.windSpeed} km/h
-                        </p>
-
-                        <p>
-                            <strong>Pressure:</strong>
-                            {weatherData.pressure} hPa
-                        </p>
-
+                        <p>City: {weatherData.location.name}</p>
+                        <p>Temperature: {weatherData.data.values.temperature} °C</p>
+                        <p>Humidity: {weatherData.data.values.humidity}%</p>
+                        <p>Wind Speed: {weatherData.data.values.windSpeed}</p>
+                        <p>Pressure: {weatherData.data.values.pressureSurfaceLevel}</p>
                     </div>
                 </template>
 
